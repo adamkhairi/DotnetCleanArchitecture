@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  web-api:
+    image: ${DOCKER_REGISTRY-}webapi
+    container_name: web-api
+    build:
+      context: .
+      dockerfile: src/Web.Api/Dockerfile
+    ports:
+      - 5000:8080
+      - 5001:8081
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      - MYSQL_DATABASE=webApiTemplate
+      - MYSQL_ROOT_PASSWORD=4114
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - ./.containers/mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:80
