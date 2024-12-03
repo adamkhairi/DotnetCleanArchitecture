@@ -17,7 +17,7 @@ internal sealed class GetRolesQueryHandler : IQueryHandler<GetRolesQuery, IReadO
 
     public async Task<Result<IReadOnlyList<RoleResponse>>> Handle(GetRolesQuery query, CancellationToken cancellationToken)
     {
-        var roles = await _context.Roles
+        List<RoleResponse> roles = await _context.Roles
             .Include(r => r.Permissions)
             .Include(r => r.Users)
             .Select(r => new RoleResponse(

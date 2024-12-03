@@ -18,7 +18,7 @@ internal sealed class RemoveRoleFromUserCommandHandler : ICommandHandler<RemoveR
 
     public async Task<Result> Handle(RemoveRoleFromUserCommand command, CancellationToken cancellationToken)
     {
-        var role = await _context.Roles
+        Role? role = await _context.Roles
             .FirstOrDefaultAsync(r => r.Id == command.RoleId, cancellationToken);
 
         if (role is null)
@@ -26,7 +26,7 @@ internal sealed class RemoveRoleFromUserCommandHandler : ICommandHandler<RemoveR
             return Result.Failure(RoleErrors.NotFound(command.RoleId));
         }
 
-        var user = await _context.Users
+        User? user = await _context.Users
             .FirstOrDefaultAsync(u => u.Id == command.UserId, cancellationToken);
 
         if (user is null)

@@ -1,24 +1,17 @@
 using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
 using Domain.Roles;
-using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
 namespace Application.Roles.Queries.GetRoleById;
 
-internal sealed class GetRoleByIdQueryHandler : IQueryHandler<GetRoleByIdQuery, RoleResponse>
+internal sealed class GetRoleByIdQueryHandler(IApplicationDbContext context)
+    : IQueryHandler<GetRoleByIdQuery, RoleResponse>
 {
-    private readonly IApplicationDbContext _context;
-
-    public GetRoleByIdQueryHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<Result<RoleResponse>> Handle(GetRoleByIdQuery query, CancellationToken cancellationToken)
     {
-        var role = await _context.Roles
+        Role? role = await context.Roles
             .Include(r => r.Permissions)
             .Include(r => r.Users)
             .FirstOrDefaultAsync(r => r.Id == query.Id, cancellationToken);

@@ -18,7 +18,7 @@ internal sealed class AssignRoleToUserCommandHandler : ICommandHandler<AssignRol
 
     public async Task<Result> Handle(AssignRoleToUserCommand command, CancellationToken cancellationToken)
     {
-        var role = await _context.Roles
+        Role? role = await _context.Roles
             .FirstOrDefaultAsync(r => r.Id == command.RoleId, cancellationToken);
 
         if (role is null)
@@ -26,7 +26,7 @@ internal sealed class AssignRoleToUserCommandHandler : ICommandHandler<AssignRol
             return Result.Failure(RoleErrors.NotFound(command.RoleId));
         }
 
-        var user = await _context.Users
+        User? user = await _context.Users
             .FirstOrDefaultAsync(u => u.Id == command.UserId, cancellationToken);
 
         if (user is null)

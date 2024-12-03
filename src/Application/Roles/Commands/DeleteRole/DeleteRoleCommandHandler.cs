@@ -18,7 +18,7 @@ internal sealed class DeleteRoleCommandHandler : ICommandHandler<DeleteRoleComma
 
     public async Task<Result> Handle(DeleteRoleCommand command, CancellationToken cancellationToken)
     {
-        var role = await _context.Roles
+        Role? role = await _context.Roles
             .FirstOrDefaultAsync(r => r.Id == command.Id, cancellationToken);
 
         if (role is null)
