@@ -24,5 +24,10 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasIndex(u => u.Email)
             .IsUnique();
+
+        // Configure many-to-many relationship with Roles
+        builder.HasMany(u => u.Roles)
+            .WithMany(r => r.Users)
+            .UsingEntity("UserRoles"); // Creates a join table
     }
 }
