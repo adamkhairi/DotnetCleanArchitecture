@@ -1,0 +1,54 @@
+src/
+├── Domain/
+│   ├── Common/
+│   │   └── BaseEntity.cs
+│   ├── Roles/
+│   │   ├── Role.cs
+│   │   └── IRoleRepository.cs
+│   ├── Permissions/
+│   │   ├── Permission.cs
+│   │   ├── UserPermission.cs
+│   │   └── IPermissionRepository.cs
+│   └── Users/
+│       ├── User.cs
+│       └── IUserRepository.cs
+├── Application/
+│   ├── Common/
+│   │   ├── Behaviors/
+│   │   │   └── ValidationBehavior.cs
+│   │   └── Exceptions/
+│   │       └── ValidationException.cs
+│   ├── Abstractions/
+│   │   ├── Authentication/
+│   │   │   └── ITokenProvider.cs
+│   │   └── Data/
+│   │       └── IUnitOfWork.cs
+│   └── Users/
+│       ├── Login/
+│       │   ├── LoginUserCommand.cs
+│       │   ├── LoginUserCommandHandler.cs
+│       │   └── LoginUserCommandValidator.cs
+│       └── AssignRole/
+│           ├── AssignRoleCommand.cs
+│           ├── AssignRoleCommandHandler.cs
+│           └── AssignRoleCommandValidator.cs
+├── Infrastructure/
+│   ├── Authentication/
+│   │   └── TokenProvider.cs
+│   ├── Persistence/
+│   │   ├── Configurations/
+│   │   │   ├── RoleConfiguration.cs
+│   │   │   ├── UserConfiguration.cs
+│   │   │   └── PermissionConfiguration.cs
+│   │   ├── Repositories/
+│   │   │   ├── RoleRepository.cs
+│   │   │   ├── UserRepository.cs
+│   │   │   └── PermissionRepository.cs
+│   │   └── ApplicationDbContext.cs
+│   └── DependencyInjection.cs
+└── Web.Api/
+    ├── Common/
+    │   └── ApiController.cs
+    └── Endpoints/
+        └── Roles/
+            └── AssignToUserRequest.cs 
